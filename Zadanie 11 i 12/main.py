@@ -5,8 +5,16 @@ from datetime import datetime, timedelta
 
 class Field:
     """Base class for entry fields."""
-    def __init__(self, value):
+    def __init__(self, value=None):
         self.value = value
+
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, value):
+        self._value = value
 
 class Name(Field):
     """Class for first and last name."""
@@ -14,10 +22,11 @@ class Name(Field):
 
 class Phone(Field):
     """Class for phone number with validation."""
-    def __init__(self, value):
-        if not self.validate_phone(value):
+    @Field.value.setter
+    def value(self, new_value):
+        if not self.validate_phone(new_value):
             raise ValueError("Niepoprawny numer telefonu")
-        super().__init__(value)
+        self._value = new_value
 
     @staticmethod
     def validate_phone(value):
@@ -27,10 +36,11 @@ class Phone(Field):
 
 class Email(Field):
     """Class for email address with validation."""
-    def __init__(self, value):
-        if not self.validate_email(value):
+    @Field.value.setter
+    def value(self, new_value):
+        if not self.validate_email(new_value):
             raise ValueError("Niepoprawny adres email")
-        super().__init__(value)
+        self._value = new_value
 
     @staticmethod
     def validate_email(value):
@@ -40,10 +50,11 @@ class Email(Field):
 
 class Birthday(Field):
     """Class for birthday with validation."""
-    def __init__(self, value):
-        if not self.validate_birthday(value):
+    @Field.value.setter
+    def value(self, new_value):
+        if not self.validate_birthday(new_value):
             raise ValueError("Niepoprawna data urodzenia")
-        super().__init__(value)
+        self._value = new_value
 
     @staticmethod
     def validate_birthday(value):
