@@ -19,12 +19,11 @@ class ExchangeRatesFetcher:
 
     async def get_exchange_rates_for_last_n_days(self, n):
         today = datetime.today()
+        date = (today - timedelta(days=n - 1)).strftime("%Y-%m-%d")
         exchange_rates = []
-        for i in range(n):
-            date = (today - timedelta(days=i)).strftime("%Y-%m-%d")
-            data = await self.fetch_exchange_rates(date)
-            if data:
-                exchange_rates.append({date: self.parse_exchange_rates(data)})
+        data = await self.fetch_exchange_rates(date)
+        if data:
+            exchange_rates.append({date: self.parse_exchange_rates(data)})
         return exchange_rates
 
     def parse_exchange_rates(self, data):
