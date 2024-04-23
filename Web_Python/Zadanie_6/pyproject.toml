@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "zadanie-6"
+version = "0.1.0"
+description = ""
+authors = ["Grzegorz Piwowarczyk <grzegorz.piwowarczyk@schibsted.com>"]
+readme = "README.md"
+packages = [{include = "zadanie_6"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+faker = "^24.9.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
